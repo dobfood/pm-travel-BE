@@ -38,7 +38,13 @@ export const register = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
+export const comparePasswords = async (plainPassword, hashedPassword) => {
+  try {
+    const match = await bcrypt.compare(plainPassword, hashedPassword);
+    return match;
+  } catch (error) {
+  }
+};
 export const login = async (req, res) => {
   // Our login logic starts here
   try {
@@ -51,7 +57,8 @@ export const login = async (req, res) => {
     }
     // Validate if user exist in our database
     const user = await User.findOne({ email });
-    if (user && (await bcrypt.compare(password, user.password))) {
+    const isMatch = await comparePasswords(password, user.password);
+    if (user && isMatch) {
       //create token
       const token = jwt.sign(
         { user_id: user._id, email },
@@ -62,8 +69,10 @@ export const login = async (req, res) => {
       );
       user.token = token;
       res.status(200).json(user);
+      return;
     }
     res.status(400).send("Invalid Credentials");
+    
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

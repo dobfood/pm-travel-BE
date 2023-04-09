@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema(
       enum: ["normal", "google"],
       default: "normal",
     },
+    googleId: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

@@ -6,17 +6,20 @@ import multer from "multer";
 import helmet from "helmet";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
+
+
 import auth from "./routes/auth.js";
 import clientRoutes from "./routes/client.js";
 import managerRoutes from "./routes/managements.js";
 import generalRoutes from "./routes/general.js";
 import salesRoutes from "./routes/sales.js";
-
 // data imports
 import User from "./models/User.js";
 import { dataUser } from "./datas/index.js";
+import passport from "passport";
 /* CONFIGURATION  */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,7 +38,15 @@ app.use(
   })
 );
 app.use("/assets", express.static(path.join(__dirname, "public//assets")));
-
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 /* FILE STORAGE */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
