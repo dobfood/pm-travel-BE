@@ -1,13 +1,13 @@
 import passport from "passport";
-import GoogleStrategy from "passport-google-oauth20";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from "../models/User.js";
-const googleStrategy = GoogleStrategy.Strategy;
 const GOOGLE_CALLBACK_URL = "http://localhost:5001/auth/google/callback";
 passport.use(
-  new googleStrategy(
+  new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID:
+        "1018094336601-15boo1m56a8pr86jcv3h4ntno025qjkc.apps.googleusercontent.com",
+      clientSecret: "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",
       callbackURL: GOOGLE_CALLBACK_URL,
       passReqToCallback: true,
     },

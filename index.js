@@ -10,7 +10,6 @@ import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 
-
 import auth from "./routes/auth.js";
 import clientRoutes from "./routes/client.js";
 import managerRoutes from "./routes/managements.js";
@@ -18,7 +17,9 @@ import generalRoutes from "./routes/general.js";
 import salesRoutes from "./routes/sales.js";
 // data imports
 import User from "./models/User.js";
-import { dataUser } from "./datas/index.js";
+import { dataUser, dataTour } from "./datas/index.js";
+import Tour from "./models/Tour.js";
+
 import passport from "passport";
 /* CONFIGURATION  */
 const __filename = fileURLToPath(import.meta.url);
@@ -77,5 +78,6 @@ mongoose
 
     /* ONLY ADD DATA ONE TIME */
     // User.insertMany(dataUser);
+    // Tour.insertMany(dataTour);
   })
   .catch((error) => console.log(`${error} did not connect`));

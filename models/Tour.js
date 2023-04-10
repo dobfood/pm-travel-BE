@@ -16,7 +16,7 @@ const TourSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     content: { type: String, required: true },
     departureSchedule: { type: Array, required: true },
-    images: { type: Array, required: true },
+    images: { type: String, required: true },
     totalViews: { type: Number },
     rating: { type: Number },
     score: { type: Number, required: true },

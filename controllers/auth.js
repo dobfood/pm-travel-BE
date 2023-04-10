@@ -42,8 +42,7 @@ export const comparePasswords = async (plainPassword, hashedPassword) => {
   try {
     const match = await bcrypt.compare(plainPassword, hashedPassword);
     return match;
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 export const login = async (req, res) => {
   // Our login logic starts here
@@ -67,12 +66,12 @@ export const login = async (req, res) => {
           expiresIn: "2h",
         }
       );
+      delete user.password;
       user.token = token;
-      res.status(200).json(user);
+      res.status(200).json({ user, token });
       return;
     }
     res.status(400).send("Invalid Credentials");
-    
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

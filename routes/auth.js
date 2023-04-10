@@ -6,7 +6,7 @@ const router = express.Router();
 
 const successLoginUrl = "http://localhost:5001/login/success";
 const errorLoginUrl = "http://localhost:5001/login/error";
-    // sign google
+// sign google
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -20,7 +20,7 @@ router.get(
   })
 );
 
-  //sign wed app
+//sign wed app
 router.post("/register", register);
 router.post("/login", login);
 export default router;
