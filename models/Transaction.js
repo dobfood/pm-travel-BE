@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const TransactionSchema = new mongoose.Schema(
   {
-    userId: String,
+    userId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     totalMoney: Number,
     status: {
       type: String,
@@ -10,8 +10,7 @@ const TransactionSchema = new mongoose.Schema(
     },
     method: { type: String, enum: ["TRANSFER", "CASH"] },
     idTourOrder: {
-      type: mongoose.Types.ObjectId,
-      of: Number,
+      type: mongoose.Schema.Types.ObjectId, ref: 'TourOrder',
     },
     bankName: String,
     accountName: String,

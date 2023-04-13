@@ -58,7 +58,9 @@ export const login = async (req, res) => {
     const user = await User.findOne({ email });
     const isMatch = await comparePasswords(password, user.password);
     if (user && isMatch) {
+      
       //create token
+
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.JWT_SECRET,
