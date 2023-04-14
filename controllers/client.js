@@ -3,6 +3,19 @@ import TourStat from "../models/TourStat.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import TourOrder from "../models/TourOrder.js";
+import Province from "../models/Province.js";
+
+//PROVINCE
+export const getProvince= async(req,res)=>{
+  try{
+    const province = await Province.find({})
+    res.status(200).json(province)
+  }
+  catch(error){
+    res.status(404).json({ message: error.message });
+  }
+}
+
 
 // TOUR
 export const getTours = async (req, res) => {
@@ -32,15 +45,13 @@ export const createTour = async (req, res) => {
       title,
       departure,
       destination,
-      duration,
       description,
-      departureSchedule,
       images,
       numberDay,
       price,
       content,
       rating,
-      score,
+      maxNumber,
       thumbnail,
       codeTour,
     } = req.body;
@@ -49,15 +60,13 @@ export const createTour = async (req, res) => {
       title,
       departure,
       destination,
-      duration,
       description,
-      departureSchedule,
       images,
       numberDay,
       price,
       content,
       rating,
-      score,
+      maxNumber,
       thumbnail,
       codeTour,
     });

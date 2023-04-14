@@ -12,10 +12,14 @@ import {
   findTransaction,
   updateCustomer,
   findCustomer,
+  getProvince
 } from "../controllers/client.js";
 import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 const upload = multer();
+
+//PROVINCE
+router.get("/provinces",getProvince)
 
 // TOUR
 router.get("/tours", verifyToken, getTours);

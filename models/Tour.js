@@ -13,16 +13,16 @@ const TourSchema = new mongoose.Schema(
     },
     departure: { type: String, required: true },
     destination: { type: String, required: true },
+
     numberDay: { type: Number, required: true },
     price: { type: Number, required: true },
     content: { type: String, required: true },
-    departureSchedule: { type: Array, required: true },
     images: { type: Array, required: true },
-    totalViews: { type: Number,default:0 },
+    totalViews: { type: Number, default: 0 },
     rating: { type: Number },
-    score: { type: Number, required: true },
+    description: { type: String },
     thumbnail: { type: String, required: true },
-    codeTour: { type: String, required: true ,unique:true},
+    codeTour: { type: String, required: true, unique: true },
   },
   { timeStamps: true }
 );

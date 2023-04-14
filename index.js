@@ -15,12 +15,14 @@ import clientRoutes from "./routes/client.js";
 import managerRoutes from "./routes/managements.js";
 import generalRoutes from "./routes/general.js";
 import salesRoutes from "./routes/sales.js";
+import checkRoutes from "./routes/checkUnique.js"
 // data imports
 import User from "./models/User.js";
-import { dataUser, dataTour } from "./datas/index.js";
+import { dataUser, dataTour, dataProvince } from "./datas/index.js";
 import Tour from "./models/Tour.js";
-
 import passport from "passport";
+import Province from "./models/Province.js";
+
 /* CONFIGURATION  */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,7 +67,7 @@ app.use("/client", clientRoutes);
 app.use("/management", managerRoutes);
 app.use("/general", generalRoutes);
 app.use("/sales", salesRoutes);
-
+app.use("/check",checkRoutes)
 const PORT = process.env.PORT || 9000;
 
 mongoose
@@ -75,9 +77,9 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port:${PORT}`));
-
     /* ONLY ADD DATA ONE TIME */
     // User.insertMany(dataUser);
     // Tour.insertMany(dataTour);
+    // Province.insertMany(dataProvince)
   })
   .catch((error) => console.log(`${error} did not connect`));
