@@ -4,18 +4,17 @@ import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import TourOrder from "../models/TourOrder.js";
 import Province from "../models/Province.js";
+import Order from "../models/TourOrder.js";
 
 //PROVINCE
-export const getProvince= async(req,res)=>{
-  try{
-    const province = await Province.find({})
-    res.status(200).json(province)
-  }
-  catch(error){
+export const getProvince = async (req, res) => {
+  try {
+    const province = await Province.find({});
+    res.status(200).json(province);
+  } catch (error) {
     res.status(404).json({ message: error.message });
   }
-}
-
+};
 
 // TOUR
 export const getTours = async (req, res) => {
@@ -97,13 +96,79 @@ export const updateTour = async (req, res) => {
 export const findTour = async (req, res) => {
   try {
     let id = req.params.id;
-    const tour = await Tour.findOne({ _id: id });
-    res.status(200).json(tour);
+    const tour = await Tour.updateOne({ _id: id }, { $inc: { totalViews: 1 } });
+    const result = await Tour.findOne({ _id: id });
+    res.status(200).json(result);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
+// ORDER TOUR
+export const getOrder = async (req, res) => {
+  try {
+    const order = await Order.find({});
+    res.status(200).json(toursWithStats);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const createOrder = async (req, res) => {
+  try {
+    const {
+      idTour,
+      idCustomer,
+      name,
+      phone,
+      date,
+      email,
+      totalPerson,
+      totalMoney
+    } = req.body;
+    const order = await Tour.create({
+      idTour,
+      idCustomer,
+      name,
+      phone,
+      date,
+      email,
+      totalPerson,
+      totalMoney
+    });
+    res.status(201).json(order);
+    console.log(order);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const deleteOrder = async (req, res) => {
+  try {
+    await Tour.findByIdAndRemove(req.params.id);
+    res.status(204).json("delete success!");
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const updateOrder = async (req, res) => {
+  try {
+    let data = req.body;
+    let id = req.params.id;
+    let order = await Order.findByIdAndUpdate(id, data);
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const findOrder = async (req, res) => {
+  try {
+    let id = req.params.id;
+    const order = await Order.findOne({ _id: id });
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 // CUSTOMER
 
 export const getCustomers = async (req, res) => {
@@ -182,6 +247,7 @@ export const createTransaction = async (req, res) => {
       bankName,
       accountName,
     } = req.body;
+
     const transaction = new Transaction.create({
       userId,
       totalMoney,

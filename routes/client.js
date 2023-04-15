@@ -12,7 +12,11 @@ import {
   findTransaction,
   updateCustomer,
   findCustomer,
-  getProvince
+  getProvince,
+  getOrder,
+  deleteOrder,
+  createOrder,
+  findOrder
 } from "../controllers/client.js";
 import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
@@ -23,11 +27,15 @@ router.get("/provinces",getProvince)
 
 // TOUR
 router.get("/tours", verifyToken, getTours);
-router.post("/tours", verifyToken,upload.none(), createTour);
 router.delete("/tours/:id", verifyToken, deleteTour);
 router.post("/tours/:id", verifyToken, updateTour);
 router.get("/tours/:id", verifyToken, findTour);
 
+// TOUR ORDER 
+router.get("/orders", verifyToken, getOrder);
+router.delete("/orders/:id", verifyToken, deleteOrder);
+router.post("/orders/:id", verifyToken, createOrder);
+router.get("/orders/:id", verifyToken, findOrder);
 // CUSTOMER
 router.get("/customers", verifyToken, getCustomers);
 router.post("/customers", verifyToken, updateCustomer);

@@ -1,20 +1,17 @@
 import mongoose from "mongoose";
 
-const TourOrderSchema = new mongoose.Schema(
+const OrderSchema = new mongoose.Schema(
   {
-    departure: { type: String, required: true },
-    destination: { type: String, required: true },
-    numberDay: { type: Number, required: true },
-    price: { type: Number, required: true },    
-    content: { type: String, required: true },
-    departureSchedule: { type: Array, required: true },
-    images: { type: Array, required: true },
-    totalViews: { type: Number, default: 0 },
-    rating: { type: Number },
-    score: { type: Number, required: true },
-    thumbnail: { type: String, required: true },
+    tour: { type: mongoose.Schema.Types.ObjectId, ref: "Tour" },
+    customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    email: { type: String, required: true },
+    name:{type:String, required: true },
+    phone:{type:String, required: true },
+    date:{type:Number, required: true },
+    totalPercent: { type: Number, required: true },
+    totalMoney: { type: Number, required: true },
   },
   { timeStamps: true }
 );
-const TourOrder = mongoose.model("TourOrder", TourOrderSchema);
-export default TourOrder;
+const Order = mongoose.model("Order", OrderSchema);
+export default Order;

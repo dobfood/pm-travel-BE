@@ -155,3 +155,15 @@ export const dataProvince = [
   { title: "Vĩnh Phúc" },
   { title: "Yên Bái" },
 ];
+export const dataOrder = [
+  {
+    idTour:"",
+    idCustomer:"",
+    name:"",
+    phone:"",
+    date:"",
+    email:"",
+    totalPerson:3,
+    totalMoney:3000,
+  }
+]

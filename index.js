@@ -9,7 +9,21 @@ import morgan from "morgan";
 import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import { verifyToken } from "./middleware/auth.js";
+import {
+  createTour,
+  getTours,
+  getCustomers,
+  getTransactions,
+  deleteTour,
+  updateTour,
+  findTour,
+  createTransaction,
+  findTransaction,
+  updateCustomer,
+  findCustomer,
+  getProvince
+} from "./controllers/client.js";
 import auth from "./routes/auth.js";
 import clientRoutes from "./routes/client.js";
 import managerRoutes from "./routes/managements.js";
@@ -60,6 +74,7 @@ const storage = multer.diskStorage({
   },
 });
 const update = multer({ storage });
+app.post("/client/tours", verifyToken,update.none(), createTour);
 
 /* ROUTES */
 app.use("/auth", auth);
